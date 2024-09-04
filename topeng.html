@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacked by Z41C5 T00l5</title>
+  <style>
+    body {
+      background-color: black;
+      color: green;
+      font-family: 'Courier New', Courier, monospace;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .matrix {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+
+    .top-text {
+      position: absolute;
+      top: 50px; /* Diturunkan sedikit */
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
+
+    .center-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+
+    h1, h2 {
+      margin: 10px 0;
+      animation: glitch 2s infinite;
+      color: #00ff00;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    h2 {
+      font-size: 30px;
+    }
+
+    .marquee {
+      position: absolute;
+      bottom: 50px; /* Ditinggikan sedikit */
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .marquee span {
+      display: inline-block;
+      padding-left: 100%;
+      animation: marquee 15s linear infinite;
+      font-size: 20px;
+      color: #00ff00;
+    }
+
+    @keyframes glitch {
+      0%, 100% { text-shadow: 2px 2px 0 red, -2px -2px 0 blue; }
+      25% { text-shadow: -2px -2px 0 red, 2px 2px 0 blue; }
+      50% { text-shadow: 2px -2px 0 red, -2px 2px 0 blue; }
+      75% { text-shadow: -2px 2px 0 red, 2px -2px 0 blue; }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(100%); }
+      to { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="matrix"></canvas>
+
+  <!-- Teks di Bagian Atas -->
+  <div class="top-text">
+    <h1>Hacked by Z41C5 T00l5</h1>
+  </div>
+
+  <!-- Teks di Tengah -->
+  <div class="center-text">
+    <h1>No System Is Safe</h1>
+    <h2>Hacked By Z41C5 T00l5</h2>
+  </div>
+
+  <!-- Teks Berjalan -->
+  <div class="marquee">
+    <span>Hacked by Z41C5 T00l5</span>
+  </div>
+
+  <script>
+    const canvas = document.querySelector('.matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const fontSize = 16;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#0F0';
+      ctx.font = fontSize + 'px monospace';
+
+      drops.forEach((y, index) => {
+        const text = String.fromCharCode(Math.floor(Math.random() * 128));
+        ctx.fillText(text, index * fontSize, y * fontSize);
+
+        if (y * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[index] = 0;
+        }
+
+        drops[index]++;
+      });
+    }
+
+    setInterval(drawMatrix, 50);
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>
